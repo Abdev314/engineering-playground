@@ -1,2 +1,19 @@
 # reversing-playground
-Reverse engineering analysis of Windows tools and binaries from Linux. Detailed behavioral reports on Sysinternals, security utilities, and software internals. Built on Debian with radare2 + x64dbg. Progression from beginner to advanced.
+
+A personal playground for learning hacking and reverse engineering — building
+things, then taking them apart to understand how they work.
+
+## Goal
+
+Work on different topics around hacking and reverse engineering, from a
+hands-on, "build it first, then break it down" angle. No fixed roadmap:
+whatever is interesting goes here.
+
+## Projects
+
+| Project      | What it is                                                        |
+|--------------|-------------------------------------------------------------------|
+| `ransomware/` | A demo "ransomware" in C++ (AES-256-GCM + RSA hybrid encryption) — built to understand how real ransomware works, and as a target for reversing practice. See its README for details. |
+
+Everything here is written for learning in a controlled environment — run it
+only on throwaway files you don't mind losing.
