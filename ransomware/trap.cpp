@@ -128,11 +128,17 @@ bool unwrapAesKey(
   if (!ctx)
     return false;
 
-  size_t outlen = kAesKeyLen;
+  // The output buffer must hold up to one full RSA block even though the
+  // recovered key is only 32 bytes
+  unsigned char buf[512];
+  size_t outlen = sizeof(buf);
   bool ok = EVP_PKEY_decrypt_init(ctx) > 0
     && EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_OAEP_PADDING) > 0
-    && EVP_PKEY_decrypt(ctx, aesKey, &outlen, wrapped.data(), wrapped.size()) > 0
+    && EVP_PKEY_decrypt(ctx, buf, &outlen, wrapped.data(), wrapped.size()) > 0
     && outlen == kAesKeyLen;
+
+  if (ok)
+    std::memcpy(aesKey, buf, kAesKeyLen);
 
   EVP_PKEY_CTX_free(ctx);
   return ok;
