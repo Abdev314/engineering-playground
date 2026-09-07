@@ -1,6 +1,6 @@
 # reversing-playground
 
-A personal playground for learning hacking and reverse engineering — building
+A personal playground for learning hacking and reverse engineering, building
 things, then taking them apart to understand how they work.
 
 ## Goal
@@ -13,7 +13,7 @@ whatever is interesting goes here.
 
 | Project      | What it is                                                        |
 |--------------|-------------------------------------------------------------------|
-| `ransomware/` | A demo "ransomware" in C++ (AES-256-GCM + RSA hybrid encryption) — built to understand how real ransomware works, and as a target for reversing practice. See its README for details. |
+| `ransomware/` | A demo "ransomware" in C++ (AES-256-GCM + RSA hybrid encryption), built to understand how real ransomware works, and as a target for reversing practice. See its README for details. |
 
-Everything here is written for learning in a controlled environment — run it
+Everything here is written for learning in a controlled environment,  run it
 only on throwaway files you don't mind losing.
