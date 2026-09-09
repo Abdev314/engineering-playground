@@ -2,3 +2,4 @@ trap
 trap_key.bin
 trap_private.pem
 trap_public.pem
+docs/
