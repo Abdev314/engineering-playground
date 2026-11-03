@@ -1,7 +1,7 @@
 # reversing-playground
 
-A personal playground for learning hacking and reverse engineering, building
-things, then taking them apart to understand how they work.
+A personal playground for technical experiments, engineering, and curious ideas.
+Build things, break them down, understand how they work, and explore the underlying concepts.
 
 ## Goal
 
