@@ -28,7 +28,6 @@ float Ball::getRadis() const { return radis; }
 
 void Ball::ApplyForce(const Vector2& force) {
         if (mass <= 0.0f) { return; }
-
         acceleration = acceleration + Vector2(
             force.getx() / mass,
             force.gety() / mass
@@ -36,10 +35,7 @@ void Ball::ApplyForce(const Vector2& force) {
 }
 
 void Ball::Update(float deltaTime) {
-
     velocity = velocity + acceleration * deltaTime;
     position = position + velocity * deltaTime;
-    acceleration = Vector2(0.0f, 0.0f);
-    
+    acceleration = Vector2(0.0f, 0.0f);  
 }
-

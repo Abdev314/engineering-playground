@@ -1,7 +1,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-/*Include class , defines what a vector has and what it can do*/
 class Vector2 {
 
     private: 
@@ -19,5 +18,8 @@ class Vector2 {
         float magnitude() const; 
         Vector2 normalized() const;
         float dot(const Vector2& other) const;
+
+        Vector2 operator+(const Vector2& other) const;
+        Vector2 operator*(float scalar) const;
 };
 #endif
