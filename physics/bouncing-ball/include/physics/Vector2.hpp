@@ -5,7 +5,7 @@ class Vector2 {
 
     private: 
         float x , y ;
-    
+ 
     public:
         Vector2(float x, float y);
         

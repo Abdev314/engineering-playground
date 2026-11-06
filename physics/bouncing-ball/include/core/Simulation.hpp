@@ -1,9 +1,3 @@
-// Hold a Ball object.
-// Define gravity.
-// Calculate the gravitational force.
-// Call Ball::ApplyForce().
-// Call Ball::Update(deltaTime).
-
 #ifndef SIMULATION_H
 #define SIMULATION_H
 #include <vector>
@@ -24,7 +18,6 @@ class Simulation {
 
         void AddBall(const Ball& ball);
         void Update(float deltaTime);
-        std::vector<Ball>& GetBalls();
-};
+        const std::vector<Ball>& GetBalls() const;};
 #endif
 

@@ -20,3 +20,7 @@ void Simulation::Update(float deltaTime) {
     }
 }
 const std::vector<Ball>& Simulation::GetBalls() const { return balls; }
+
+
+
+
