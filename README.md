@@ -1,5 +1,3 @@
-# reversing-playground
-
 A personal playground for technical experiments, engineering, and curious ideas.  
 Build things, break them down, understand how they work, and explore the underlying concepts.
 
