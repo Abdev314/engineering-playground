@@ -3,20 +3,28 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-
 #include "core/Simulation.hpp"
+#include "rendering/Background.hpp"
+
+class Ball;
 
 class Renderer {
-private:
-    sf::RenderWindow window;
+    private:
+        void BuildGround(float width);
+        void DrawBall(const Ball& ball);
 
-public:
-    Renderer(unsigned int width, unsigned int height,
-             const std::string& title);
+        sf::RenderWindow  window;
+        Background background;
+        float groundY;
+        sf::VertexArray groundHatch{sf::PrimitiveType::Lines};
+        sf::RectangleShape groundLine;
 
-    void HandleEvents();
-    void Render(const Simulation& simulation);
-    bool IsOpen() const;
+    public:
+        Renderer(unsigned int width, unsigned int height, const std::string& title);
+
+        void HandleEvents();
+        void Render(const Simulation& simulation);
+        bool IsOpen() const;
 };
 
 #endif

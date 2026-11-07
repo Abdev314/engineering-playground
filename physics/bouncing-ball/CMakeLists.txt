@@ -25,6 +25,8 @@ add_executable(bouncing-ball
     src/physics/Vector2.cpp
     src/physics/Ball.cpp
     src/rendering/Renderer.cpp
+    src/rendering/Background.cpp  
+
 )
 
 # Header directories

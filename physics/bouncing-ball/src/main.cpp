@@ -3,55 +3,58 @@
 #include "rendering/Renderer.hpp"
 
 #include <SFML/System/Clock.hpp>
+#include <algorithm>
 #include <vector>
-#include <iostream>
 
-int main() {
+namespace {
 
-    std::cout << "Starting program\n";
+// ---------------------------------------------------------------- config
+struct Config {
+    static constexpr unsigned WindowWidth  = 800;
+    static constexpr unsigned WindowHeight = 600;
+    static constexpr const char* Title     = "Bouncing Ball Simulation";
 
-    // Create balls
+    static constexpr float FixedStep   = 1.0f / 120.0f; // physics step (s)
+    static constexpr float MaxFrameTime = 0.25f;        // avoids spiral of death
+};
+
+// ---------------------------------------------------------------- scene
+std::vector<Ball> CreateBalls() {
     std::vector<Ball> balls;
-
     balls.emplace_back(
-        Vector2(200.0f, 100.0f),
-        Vector2(0.0f, 0.0f),
-        Vector2(0.0f, 0.0f),
-        2.0f,
-        50.0f
+        Vector2(200.0f, 100.0f),  // position
+        Vector2(0.0f, 0.0f),      // velocity
+        Vector2(0.0f, 0.0f),      // acceleration
+        2.0f,                     // mass
+        50.0f                     // radius
     );
+    return balls;
+}
 
+} // namespace
 
-    std::cout << "Balls created\n";
+// ---------------------------------------------------------------- main
+int main() {
+    const Vector2 gravity(0.0f, 9.81f);
 
-    // Create simulation
-    Vector2 gravity(0.0f, 9.81f);
-    Simulation simulation(balls, gravity);
+    Simulation simulation(CreateBalls(), gravity);
+    Renderer   renderer(Config::WindowWidth, Config::WindowHeight, Config::Title);
 
-    std::cout << "Simulation created\n";
-
-    // Create renderer
-    Renderer renderer(800, 600, "Bouncing Ball Simulation");
-
-    std::cout << "Renderer created\n";
-    std::cout << "Window open: " << renderer.IsOpen() << '\n';
-
-    // Create clock
     sf::Clock clock;
+    float accumulator = 0.0f;
 
-    // Main application loop
     while (renderer.IsOpen()) {
-
         renderer.HandleEvents();
 
-        float deltaTime = clock.restart().asSeconds();
-
-        simulation.Update(deltaTime);
+        // Fixed-timestep update: physics stays stable and deterministic
+        accumulator += std::min(clock.restart().asSeconds(), Config::MaxFrameTime);
+        while (accumulator >= Config::FixedStep) {
+            simulation.Update(Config::FixedStep);
+            accumulator -= Config::FixedStep;
+        }
 
         renderer.Render(simulation);
     }
-
-    std::cout << "Window closed\n";
 
     return 0;
 }
